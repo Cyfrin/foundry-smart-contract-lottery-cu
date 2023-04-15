@@ -1,0 +1,7 @@
+tasks:
+  - name: Install Foundry
+    init: |
+      curl -L https://foundry.paradigm.xyz | bash
+      source /home/gitpod/.bashrc
+  - name: Start Foundry
+    command: foundryup
