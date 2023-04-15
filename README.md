@@ -34,8 +34,8 @@ This project is apart of the Hardhat FreeCodeCamp video.
 ## Quickstart
 
 ```
-git clone https://github.com/PatrickAlphaC/foundry-fund-me-f23
-cd foundry-fund-me-f23
+git clone https://github.com/PatrickAlphaC/foundry-smart-contract-lottery-f23
+cd foundry-smart-contract-lottery-f23
 forge build
 ```
 
@@ -43,7 +43,7 @@ forge build
 
 If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/foundry-fund-me-f23)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/foundry-smart-contract-lottery-f23)
 
 # Usage
 
