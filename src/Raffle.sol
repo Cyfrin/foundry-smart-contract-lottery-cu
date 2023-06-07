@@ -175,12 +175,12 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         s_players = new address payable[](0);
         s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
+        emit WinnerPicked(recentWinner);
         (bool success, ) = recentWinner.call{value: address(this).balance}("");
         // require(success, "Transfer failed");
         if (!success) {
             revert Raffle__TransferFailed();
         }
-        emit WinnerPicked(recentWinner);
     }
 
     /** Getter Functions */
