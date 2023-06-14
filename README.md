@@ -55,7 +55,7 @@ make anvil
 
 ## Library
 
-This commmand will help you to install library
+This commmand will help you to install library.
 
 ```
 forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
