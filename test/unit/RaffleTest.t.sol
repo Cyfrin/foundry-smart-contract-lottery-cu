@@ -211,7 +211,7 @@ contract RaffleTest is StdCheats, Test {
     }
 
     modifier skipFork() {
-        if (block.number != 31337) {
+        if (block.chainid != 31337) {
             return;
         }
         _;

@@ -61,7 +61,7 @@ contract RaffleTest is StdCheats, Test {
     }
 
     modifier onlyOnDeployedContracts() {
-        if (block.number == 31337) {
+        if (block.chainid == 31337) {
             return;
         }
         try vm.activeFork() returns (uint256) {
