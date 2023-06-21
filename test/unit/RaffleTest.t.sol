@@ -84,12 +84,11 @@ contract RaffleTest is StdCheats, Test {
         raffle.enterRaffle{value: raffleEntranceFee}();
     }
 
-    function testDontAllowPlayersToEnterWhileRaffleIsCalculating() public {
+    function testDontAllowPlayersToEnterWhileRaffleIsCalculating()
+        public
+        raffleEntered
+    {
         // Arrange
-        vm.prank(PLAYER);
-        raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
         raffle.performUpkeep("");
 
         // Act / Assert
@@ -113,12 +112,11 @@ contract RaffleTest is StdCheats, Test {
         assert(!upkeepNeeded);
     }
 
-    function testCheckUpkeepReturnsFalseIfRaffleIsntOpen() public {
+    function testCheckUpkeepReturnsFalseIfRaffleIsntOpen()
+        public
+        raffleEntered
+    {
         // Arrange
-        vm.prank(PLAYER);
-        raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
         raffle.performUpkeep("");
         Raffle.RaffleState raffleState = raffle.getRaffleState();
         // Act
@@ -131,12 +129,12 @@ contract RaffleTest is StdCheats, Test {
     // Can you implement this?
     function testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed() public {}
 
-    function testCheckUpkeepReturnsTrueWhenParametersGood() public {
+    function testCheckUpkeepReturnsTrueWhenParametersGood()
+        public
+        raffleEntered
+    {
         // Arrange
-        vm.prank(PLAYER);
-        raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
+        // Done thanks to the raffleEntered custom modifier
 
         // Act
         (bool upkeepNeeded, ) = raffle.checkUpkeep("");
@@ -149,12 +147,12 @@ contract RaffleTest is StdCheats, Test {
     // performUpkeep       //
     /////////////////////////
 
-    function testPerformUpkeepCanOnlyRunIfCheckUpkeepIsTrue() public {
+    function testPerformUpkeepCanOnlyRunIfCheckUpkeepIsTrue()
+        public
+        raffleEntered
+    {
         // Arrange
-        vm.prank(PLAYER);
-        raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
+        // Done thanks to the raffleEntered custom modifier
 
         // Act / Assert
         // It doesnt revert
@@ -178,12 +176,12 @@ contract RaffleTest is StdCheats, Test {
         raffle.performUpkeep("");
     }
 
-    function testPerformUpkeepUpdatesRaffleStateAndEmitsRequestId() public {
+    function testPerformUpkeepUpdatesRaffleStateAndEmitsRequestId()
+        public
+        raffleEntered
+    {
         // Arrange
-        vm.prank(PLAYER);
-        raffle.enterRaffle{value: raffleEntranceFee}();
-        vm.warp(block.timestamp + automationUpdateInterval + 1);
-        vm.roll(block.number + 1);
+        // Done thanks to the raffleEntered modifier
 
         // Act
         vm.recordLogs();
