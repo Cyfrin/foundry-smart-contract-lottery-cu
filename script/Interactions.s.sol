@@ -9,6 +9,10 @@ import {VRFCoordinatorV2Mock} from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 contract CreateSubscription is Script {
+    function run() external returns (uint64) {
+        return createSubscriptionUsingConfig();
+    }
+
     function createSubscriptionUsingConfig() public returns (uint64) {
         HelperConfig helperConfig = new HelperConfig();
         (
@@ -37,13 +41,17 @@ contract CreateSubscription is Script {
         console.log("Please update the subscriptionId in HelperConfig.s.sol");
         return subId;
     }
-
-    function run() external returns (uint64) {
-        return createSubscriptionUsingConfig();
-    }
 }
 
 contract AddConsumer is Script {
+    function run() external {
+        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
+            "Raffle",
+            block.chainid
+        );
+        addConsumerUsingConfig(mostRecentlyDeployed);
+    }
+
     function addConsumer(
         address contractToAddToVrf,
         address vrfCoordinator,
@@ -75,18 +83,14 @@ contract AddConsumer is Script {
         ) = helperConfig.activeNetworkConfig();
         addConsumer(mostRecentlyDeployed, vrfCoordinatorV2, subId, deployerKey);
     }
-
-    function run() external {
-        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
-            "Raffle",
-            block.chainid
-        );
-        addConsumerUsingConfig(mostRecentlyDeployed);
-    }
 }
 
 contract FundSubscription is Script {
     uint96 public constant FUND_AMOUNT = 3 ether;
+
+    function run() external {
+        fundSubscriptionUsingConfig();
+    }
 
     function fundSubscriptionUsingConfig() public {
         HelperConfig helperConfig = new HelperConfig();
@@ -132,9 +136,5 @@ contract FundSubscription is Script {
             );
             vm.stopBroadcast();
         }
-    }
-
-    function run() external {
-        fundSubscriptionUsingConfig();
     }
 }
