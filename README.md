@@ -55,7 +55,7 @@ make anvil
 
 ## Library
 
-This commmand will help you to install library.
+If you're having a hard time installing the chainlink library, you can optionally run this command. 
 
 ```
 forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-commit
