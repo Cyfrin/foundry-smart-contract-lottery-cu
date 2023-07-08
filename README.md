@@ -132,7 +132,7 @@ This will setup a ChainlinkVRF Subscription for you. If you already have one, up
 
 Go to [automation.chain.link](https://automation.chain.link/new) and register a new upkeep. Choose `Custom logic` as your trigger mechanism for automation. Your UI will look something like this once completed:
 
-![Automation](./img/keepers.png)
+![Automation](./img/automation.png)
 
 ## Scripts
 
