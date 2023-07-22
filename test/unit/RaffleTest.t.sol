@@ -129,7 +129,13 @@ contract RaffleTest is StdCheats, Test {
     }
 
     // Can you implement this?
-    function testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed() public {}
+    function testCheckUpkeepReturnsFalseIfEnoughTimeHasntPassed() public {
+        vm.startPrank(PLAYER);
+        raffle.enterRaffle{value: entranceFee}();
+        vm.stopPrank();
+        (bool timePassed, ) = raffle.checkUpkeep("");
+        assert(!timePassed);
+    }
 
     function testCheckUpkeepReturnsTrueWhenParametersGood() public {
         // Arrange
