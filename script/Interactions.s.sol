@@ -9,7 +9,7 @@ import {VRFCoordinatorV2Mock} from "../test/mocks/VRFCoordinatorV2Mock.sol";
 import {LinkToken} from "../test/mocks/LinkToken.sol";
 
 contract CreateSubscription is Script {
-    function createSubscriptionUsingConfig() public returns (uint64) {
+    function createSubscriptionUsingConfig() public returns (uint64, address) {
         HelperConfig helperConfig = new HelperConfig();
         (
             ,
@@ -27,7 +27,7 @@ contract CreateSubscription is Script {
     function createSubscription(
         address vrfCoordinatorV2,
         uint256 deployerKey
-    ) public returns (uint64) {
+    ) public returns (uint64, address) {
         console.log("Creating subscription on chainId: ", block.chainid);
         vm.startBroadcast(deployerKey);
         uint64 subId = VRFCoordinatorV2Mock(vrfCoordinatorV2)
@@ -35,10 +35,10 @@ contract CreateSubscription is Script {
         vm.stopBroadcast();
         console.log("Your subscription Id is: ", subId);
         console.log("Please update the subscriptionId in HelperConfig.s.sol");
-        return subId;
+        return (subId, vrfCoordinatorV2);
     }
 
-    function run() external returns (uint64) {
+    function run() external returns (uint64, address) {
         return createSubscriptionUsingConfig();
     }
 }
@@ -100,6 +100,15 @@ contract FundSubscription is Script {
             address link,
             uint256 deployerKey
         ) = helperConfig.activeNetworkConfig();
+
+        if (subId == 0) {
+            CreateSubscription createSub = new CreateSubscription();
+            (uint64 updatedSubId, address updatedVRFv2) = createSub.run();
+            subId = updatedSubId;
+            vrfCoordinatorV2 = updatedVRFv2;
+            console.log("New SubId Created! ", subId, "VRF Address: ", vrfCoordinatorV2);
+        }
+
         fundSubscription(vrfCoordinatorV2, subId, link, deployerKey);
     }
 
