@@ -87,6 +87,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
         i_callbackGasLimit = callbackGasLimit;
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     function enterRaffle() public payable {
