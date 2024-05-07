@@ -51,6 +51,7 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     /* State variables */
     // Chainlink VRF Variables
     VRFCoordinatorV2Interface private immutable i_vrfCoordinator;
+// NOTE! As of newer versions of Chainlink, the subscription id is a uint256 instead of a uint64
     uint64 private immutable i_subscriptionId;
     bytes32 private immutable i_gasLane;
     uint32 private immutable i_callbackGasLimit;
