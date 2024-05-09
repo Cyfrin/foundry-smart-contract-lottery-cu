@@ -1,5 +1,8 @@
 <!-- @format -->
 
+> ! Update
+> V2.5 of Chainlink VRF uses a `uint256` as a subId instead of a `uint64` this repo has a comment to reflect that. 
+
 # Foundry Smart Contract Lottery
 
 This is a section of the Cyfrin Foundry Solidity Course.
