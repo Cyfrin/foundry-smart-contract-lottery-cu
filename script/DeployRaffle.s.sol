@@ -10,51 +10,30 @@ contract DeployRaffle is Script {
     function run() external returns (Raffle, HelperConfig) {
         HelperConfig helperConfig = new HelperConfig(); // This comes with our mocks!
         AddConsumer addConsumer = new AddConsumer();
-        (
-            uint64 subscriptionId,
-            bytes32 gasLane,
-            uint256 automationUpdateInterval,
-            uint256 raffleEntranceFee,
-            uint32 callbackGasLimit,
-            address vrfCoordinatorV2,
-            address link,
-            uint256 deployerKey
-        ) = helperConfig.activeNetworkConfig();
+        HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
 
-        if (subscriptionId == 0) {
+        if (config.subscriptionId == 0) {
             CreateSubscription createSubscription = new CreateSubscription();
-            (subscriptionId, vrfCoordinatorV2) = createSubscription.createSubscription(
-                vrfCoordinatorV2,
-                deployerKey
-            );
+            (config.subscriptionId, config.vrfCoordinatorV2_5) =
+                createSubscription.createSubscription(config.vrfCoordinatorV2_5);
 
             FundSubscription fundSubscription = new FundSubscription();
-            fundSubscription.fundSubscription(
-                vrfCoordinatorV2,
-                subscriptionId,
-                link,
-                deployerKey
-            );
+            fundSubscription.fundSubscription(config.vrfCoordinatorV2_5, config.subscriptionId, config.link);
         }
 
-        vm.startBroadcast(deployerKey);
+        vm.startBroadcast();
         Raffle raffle = new Raffle(
-            subscriptionId,
-            gasLane,
-            automationUpdateInterval,
-            raffleEntranceFee,
-            callbackGasLimit,
-            vrfCoordinatorV2
+            config.subscriptionId,
+            config.gasLane,
+            config.automationUpdateInterval,
+            config.raffleEntranceFee,
+            config.callbackGasLimit,
+            config.vrfCoordinatorV2_5
         );
         vm.stopBroadcast();
 
         // We already have a broadcast in here
-        addConsumer.addConsumer(
-            address(raffle),
-            vrfCoordinatorV2,
-            subscriptionId,
-            deployerKey
-        );
+        addConsumer.addConsumer(address(raffle), config.vrfCoordinatorV2_5, config.subscriptionId);
         return (raffle, helperConfig);
     }
 }
