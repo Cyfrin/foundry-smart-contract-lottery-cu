@@ -27,8 +27,6 @@ import {VRFConsumerBaseV2Plus} from "@chainlink/contracts/src/v0.8/vrf/dev/VRFCo
 import {VRFV2PlusClient} from "@chainlink/contracts/src/v0.8/vrf/dev/libraries/VRFV2PlusClient.sol";
 import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol";
 
-import {console2} from "forge-std/console2.sol";
-
 /**
  * @title A sample Raffle Contract
  * @author Patrick Collins
@@ -156,7 +154,6 @@ contract Raffle is VRFConsumerBaseV2Plus, AutomationCompatibleInterface {
                 )
             })
         );
-        console2.log("Requested random words with requestId: %d", requestId);
         // Quiz... is this redundant?
         emit RequestedRaffleWinner(requestId);
     }
