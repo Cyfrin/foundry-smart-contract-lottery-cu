@@ -11,6 +11,8 @@ abstract contract CodeConstants {
     // LINK / ETH price
     int256 public MOCK_WEI_PER_UINT_LINK = 4e15;
 
+    address public FOUNDRY_DEFAULT_SENDER = 0x1804c8AB1F12E6bbf3894d4083f33e07309d1f38;
+
     uint256 public constant ETH_SEPOLIA_CHAIN_ID = 11155111;
     uint256 public constant ETH_MAINNET_CHAIN_ID = 1;
     uint256 public constant LOCAL_CHAIN_ID = 31337;
@@ -33,6 +35,7 @@ contract HelperConfig is CodeConstants, Script {
         uint32 callbackGasLimit;
         address vrfCoordinatorV2_5;
         address link;
+        address account;
     }
 
     /*//////////////////////////////////////////////////////////////
@@ -73,7 +76,8 @@ contract HelperConfig is CodeConstants, Script {
             raffleEntranceFee: 0.01 ether,
             callbackGasLimit: 500000, // 500,000 gas
             vrfCoordinatorV2_5: 0x271682DEB8C4E0901D1a1550aD2e64D568E69909,
-            link: 0x514910771AF9Ca656af840dff83E8264EcF986CA
+            link: 0x514910771AF9Ca656af840dff83E8264EcF986CA,
+            account: 0x643315C9Be056cDEA171F4e7b2222a4ddaB9F88D
         });
     }
 
@@ -84,8 +88,9 @@ contract HelperConfig is CodeConstants, Script {
             automationUpdateInterval: 30, // 30 seconds
             raffleEntranceFee: 0.01 ether,
             callbackGasLimit: 500000, // 500,000 gas
-            vrfCoordinatorV2_5: 0x8103B0A8A00be2DDC778e6e7eaa21791Cd364625,
-            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+            vrfCoordinatorV2_5: 0x9DdfaCa8183c41ad55329BdeeD9F6A8d53168B1B,
+            link: 0x779877A7B0D9E8603169DdbD7836e478b4624789,
+            account: 0x643315C9Be056cDEA171F4e7b2222a4ddaB9F88D
         });
     }
 
@@ -111,8 +116,10 @@ contract HelperConfig is CodeConstants, Script {
             raffleEntranceFee: 0.01 ether,
             callbackGasLimit: 500000, // 500,000 gas
             vrfCoordinatorV2_5: address(vrfCoordinatorV2_5Mock),
-            link: address(link)
+            link: address(link),
+            account: FOUNDRY_DEFAULT_SENDER
         });
+        vm.deal(localNetworkConfig.account, 100 ether);
         return localNetworkConfig;
     }
 }

@@ -9,8 +9,9 @@ import {Test, console2} from "forge-std/Test.sol";
 import {Vm} from "forge-std/Vm.sol";
 import {VRFCoordinatorV2_5Mock} from "@chainlink/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
 import {LinkToken} from "../../test/mocks/LinkToken.sol";
+import {CodeConstants} from "../../script/HelperConfig.s.sol";
 
-contract RaffleTest is Test {
+contract RaffleTest is Test, CodeConstants {
     /*//////////////////////////////////////////////////////////////
                                  ERRORS
     //////////////////////////////////////////////////////////////*/
@@ -48,9 +49,11 @@ contract RaffleTest is Test {
         link = LinkToken(config.link);
 
         vm.startPrank(msg.sender);
-        link.mint(msg.sender, LINK_BALANCE);
+        if (block.chainid == LOCAL_CHAIN_ID) {
+            link.mint(msg.sender, LINK_BALANCE);
+            VRFCoordinatorV2_5Mock(vrfCoordinatorV2_5).fundSubscription(subscriptionId, LINK_BALANCE);
+        }
         link.approve(vrfCoordinatorV2_5, LINK_BALANCE);
-        VRFCoordinatorV2_5Mock(vrfCoordinatorV2_5).fundSubscription(subscriptionId, LINK_BALANCE);
         vm.stopPrank();
     }
 
