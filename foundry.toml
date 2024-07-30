@@ -2,13 +2,8 @@
 src = "src"
 out = "out"
 libs = ["lib"]
-remappings = ['@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/', '@solmate=lib/solmate/src/']
-
-[etherscan]
-mainnet = { key = "${ETHERSCAN_API_KEY}" }
-sepolia = {key = "${ETHERSCAN_API_KEY}"}
-
-[rpc_endpoints]
-sepolia = "${SEPOLIA_RPC_URL}"
+remappings = [
+    '@chainlink/contracts/=lib/chainlink-brownie-contracts/contracts/src/',
+]
 
 # See more config options https://github.com/foundry-rs/foundry/tree/master/config
