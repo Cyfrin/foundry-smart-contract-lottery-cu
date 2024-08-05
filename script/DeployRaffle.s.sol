@@ -12,16 +12,17 @@ contract DeployRaffle is Script {
         AddConsumer addConsumer = new AddConsumer();
         HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
 
-        if (config.subscriptionId == 0) {
-            CreateSubscription createSubscription = new CreateSubscription();
-            (config.subscriptionId, config.vrfCoordinatorV2_5) =
-                createSubscription.createSubscription(config.vrfCoordinatorV2_5, config.account);
+        CreateSubscription createSubscription = new CreateSubscription();
+        (config.subscriptionId, config.vrfCoordinatorV2_5) = createSubscription
+            .createSubscription(config.vrfCoordinatorV2_5, config.account);
 
-            FundSubscription fundSubscription = new FundSubscription();
-            fundSubscription.fundSubscription(
-                config.vrfCoordinatorV2_5, config.subscriptionId, config.link, config.account
-            );
-        }
+        FundSubscription fundSubscription = new FundSubscription();
+        fundSubscription.fundSubscription(
+            config.vrfCoordinatorV2_5,
+            config.subscriptionId,
+            config.link,
+            config.account
+        );
 
         vm.startBroadcast(config.account);
         Raffle raffle = new Raffle(
@@ -35,7 +36,12 @@ contract DeployRaffle is Script {
         vm.stopBroadcast();
 
         // We already have a broadcast in here
-        addConsumer.addConsumer(address(raffle), config.vrfCoordinatorV2_5, config.subscriptionId, config.account);
+        addConsumer.addConsumer(
+            address(raffle),
+            config.vrfCoordinatorV2_5,
+            config.subscriptionId,
+            config.account
+        );
         return (raffle, helperConfig);
     }
 }
