@@ -58,6 +58,10 @@ contract HelperConfig is CodeConstants, Script {
         return getConfigByChainId(block.chainid);
     }
 
+    function setConfig(uint256 chainId, NetworkConfig memory networkConfig) public {
+        networkConfigs[chainId] = networkConfig;
+    }
+
     function getConfigByChainId(uint256 chainId) public returns (NetworkConfig memory) {
         if (networkConfigs[chainId].vrfCoordinatorV2_5 != address(0)) {
             return networkConfigs[chainId];

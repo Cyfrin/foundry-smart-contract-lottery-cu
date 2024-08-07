@@ -21,6 +21,8 @@ contract DeployRaffle is Script {
             fundSubscription.fundSubscription(
                 config.vrfCoordinatorV2_5, config.subscriptionId, config.link, config.account
             );
+
+            helperConfig.setConfig(block.chainid, config);
         }
 
         vm.startBroadcast(config.account);
