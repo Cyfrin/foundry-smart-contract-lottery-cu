@@ -47,12 +47,12 @@ cd foundry-smart-contract-lottery-cu
 forge build
 ```
 
-### Optional Gitpod
+### Optional Gitpod or Codeanywhere
 
-If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
+If you can't or don't want to run and install locally, you can work with this repo in Gitpod or Codeanywhere. If you do this, you can skip the `clone this repo` part.
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/Cyfrin/foundry-smart-contract-lottery-cu)
-
+[![Open in Codeanywhere](https://codeanywhere.com/img/open-in-codeanywhere-btn.svg)](https://app.codeanywhere.com/#https://github.com/Cyfrin/foundry-smart-contract-lottery-cu)
 # Usage
 
 ## Start a local node
