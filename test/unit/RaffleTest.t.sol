@@ -64,7 +64,7 @@ contract RaffleTest is Test, CodeConstants {
     /*//////////////////////////////////////////////////////////////
                               ENTER RAFFLE
     //////////////////////////////////////////////////////////////*/
-    function testRaffleRevertsWHenYouDontPayEnought() public {
+    function testRaffleRevertsWHenYouDontPayEnough() public {
         // Arrange
         vm.prank(PLAYER);
         // Act / Assert
