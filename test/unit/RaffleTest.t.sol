@@ -13,7 +13,7 @@ import {CodeConstants} from "../../script/HelperConfig.s.sol";
 
 contract RaffleTest is Test, CodeConstants {
     /*//////////////////////////////////////////////////////////////
-                                 ERRORS
+                                 EVENTS
     //////////////////////////////////////////////////////////////*/
     event RequestedRaffleWinner(uint256 indexed requestId);
     event RaffleEnter(address indexed player);
