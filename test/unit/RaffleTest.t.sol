@@ -67,9 +67,10 @@ contract RaffleTest is Test, CodeConstants {
     function testRaffleRevertsWHenYouDontPayEnough() public {
         // Arrange
         vm.prank(PLAYER);
+        vm.deal(PLAYER,STARTING_USER_BALANCE);
         // Act / Assert
         vm.expectRevert(Raffle.Raffle__SendMoreToEnterRaffle.selector);
-        raffle.enterRaffle();
+        raffle.enterRaffle{value: 0.0001 ether}();
     }
 
     function testRaffleRecordsPlayerWhenTheyEnter() public {
