@@ -112,10 +112,14 @@ forge coverage
 
 1. Setup environment variables
 
-You'll want to set your `SEPOLIA_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
+You'll want to set your `SEPOLIA_RPC_URL` and `KEYSTORE_ACCOUNT` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
 
-- `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
-  - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
+- `KEYSTORE_ACCOUNT`: The name of your encrypted keystore account created with Foundry's Cast tool. **This is the SECURE way to handle private keys - never use plain text private keys in your .env file or scripts!**
+  - Create a keystore with: `cast wallet import yourKeystoreName --interactive`
+  - When prompted, paste your private key (one-time only)
+  - Set a strong password to encrypt it
+  - List your keystores with: `cast wallet list`
+  - The keystore is stored encrypted at `~/.foundry/keystores/`
 - `SEPOLIA_RPC_URL`: This is url of the sepolia testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
 
 Optionally, add your `ETHERSCAN_API_KEY` if you want to verify your contract on [Etherscan](https://etherscan.io/).
@@ -147,7 +151,7 @@ After deploying to a testnet or local net, you can run the scripts.
 Using cast deployed locally example:
 
 ```
-cast send <RAFFLE_CONTRACT_ADDRESS> "enterRaffle()" --value 0.1ether --private-key <PRIVATE_KEY> --rpc-url $SEPOLIA_RPC_URL
+cast send <RAFFLE_CONTRACT_ADDRESS> "enterRaffle()" --value 0.1ether --account <$KEYSTORE_ACCOUNT> --rpc-url $SEPOLIA_RPC_URL
 ```
 
 or, to create a ChainlinkVRF Subscription:
